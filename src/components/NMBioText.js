@@ -40,11 +40,9 @@ class NMBioText extends Component {
   }
 }
 
-
 NMBioText.propTypes = {
-  text   : PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 }
-
 
 const styles = StyleSheet.create({
   hashTag: {
