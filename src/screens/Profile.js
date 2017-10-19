@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 
+import Images from '@assets/images'
 import { NMBioText, NBSwiper, NBGrid } from '../components'
 
 const data = [
@@ -42,17 +43,9 @@ const data = [
 ]
 
 class Profile extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      index: 1
-    }
-  }
-
-  render() {
+  renderHeader() {
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.profileInfo}>
           <Image
             style={styles.avatar}
@@ -65,7 +58,20 @@ class Profile extends Component {
           </View>
         </View>
         <NBSwiper data={data} />
-        <NBGrid data={data} />
+      </View>
+    )
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.navBar}>
+          <Image source={Images.logo} style={styles.navBarLogo} resizeMode='contain'/>
+        </View>
+        <NBGrid
+          data={data}
+          renderHeader={this.renderHeader}
+        />
       </View>
     )
   }
@@ -75,10 +81,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  navBar: {
+    height: 64,
+    borderBottomWidth: 1,
+    borderColor: '#e3e3e3',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  navBarLogo: {
+    width: 80,
+    marginTop: 12
+  },
   profileInfo: {
     flexDirection: 'row',
     paddingBottom: 12,
-    paddingTop: 20,
+    paddingTop: 12,
     borderBottomWidth: 1,
     borderColor: '#f2f2f2'
   },

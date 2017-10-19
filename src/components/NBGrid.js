@@ -37,13 +37,15 @@ class NBGrid extends Component {
         enableEmptySections
         dataSource={this.dataSource}
         renderRow={(data) => this.renderGridItem(data)}
+        renderHeader={this.props.renderHeader}
       />
     )
   }
 }
 
 NBGrid.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  renderHeader: PropTypes.func
 }
 
 const styles = StyleSheet.create({
