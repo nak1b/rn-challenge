@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 16
+    height: 28
   },
   dot: {
     width: 12,
     height: 12,
     borderRadius: 6,
     backgroundColor: '#e3e3e3',
-    marginRight: 6
+    marginRight: 8
   }
 })
 

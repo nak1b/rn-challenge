@@ -77,9 +77,10 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     flexDirection: 'row',
-    backgroundColor: '#f2f2f2',
     paddingBottom: 12,
-    paddingTop: 24,
+    paddingTop: 20,
+    borderBottomWidth: 1,
+    borderColor: '#f2f2f2'
   },
   avatar: {
     width: 80,
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
   },
   bioContainer: {
     flex: 1,
-    marginRight: 20,
+    marginRight: 12,
     alignSelf:'center'
   }
 })
