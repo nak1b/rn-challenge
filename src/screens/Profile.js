@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
+
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Images from '@assets/images'
 import { NMBioText, NBSwiper, NBGrid } from '../components'
+import { fetchProfileInfo } from '../actions/ProfileActions'
 
 const data = [
   {
@@ -43,18 +48,22 @@ const data = [
 ]
 
 class Profile extends Component {
+  componentWillMount() {
+    this.props.fetchProfileInfo()
+  }
+
   renderHeader() {
+    const { bio, profileThumbnail } = this.props.profileInfo
+
     return (
       <View>
         <View style={styles.profileInfo}>
           <Image
             style={styles.avatar}
-            source={{uri:'https://d1m37qdzmw041i.cloudfront.net/photos/users/profile/thumbnail/318381-1505247817815.jpg'}}
+            source={{uri:profileThumbnail}}
           />
           <View style={styles.bioContainer}>
-            <NMBioText
-              text={"Motivation to become the best version of you!  💙💪🌎\n\nIt's #ActiveOctober\n\nShare your photos all month long to be featured!\n\n👻 Snapchat @PumpUp\n\nGet your #TeamPumpUp gear ⬇"}
-            />
+            {bio && <NMBioText text={bio} />}
           </View>
         </View>
         <NBSwiper data={data} />
@@ -70,7 +79,7 @@ class Profile extends Component {
         </View>
         <NBGrid
           data={data}
-          renderHeader={this.renderHeader}
+          renderHeader={() => this.renderHeader()}
         />
       </View>
     )
@@ -112,4 +121,24 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Profile
+Profile.propTypes = {
+  profileInfo: PropTypes.object.isRequired,
+  fetchProfileInfo: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => {
+  const { loading, profileInfo } = state.profile
+
+  return {
+    loading,
+    profileInfo
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchProfileInfo
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)

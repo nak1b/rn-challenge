@@ -1,9 +1,6 @@
 import { combineReducers } from 'redux'
-
-const reducer = (state, action) => {
-  return null
-}
+import ProfileReducer from './ProfileReducer'
 
 export default combineReducers({
-  reducer
+  profile: ProfileReducer
 })

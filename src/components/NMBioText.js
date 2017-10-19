@@ -7,15 +7,15 @@ import ViewMoreText from  '@expo/react-native-read-more-text'
 
 
 class NMBioText extends Component {
-  renderViewMore(onPress) {
+  _renderRevealedFooter(onPress) {
     return(
-      <Text onPress={onPress}>View more</Text>
+      <Text style={styles.readLess} onPress={onPress}>View Less</Text>
     )
   }
 
-  renderViewLess(onPress) {
+  _renderTruncatedFooter(onPress) {
     return(
-      <Text onPress={onPress}>View less</Text>
+      <Text style={styles.readMore} onPress={onPress}>View More</Text>
     )
   }
 
@@ -23,13 +23,14 @@ class NMBioText extends Component {
     return (
       <ViewMoreText
         numberOfLines={3}
-        renderViewMore={this.renderViewMore}
-        renderViewLess={this.renderViewLess}>
+        renderRevealedFooter={this._renderRevealedFooter}
+        renderTruncatedFooter={this._renderTruncatedFooter}>
         <ParsedText
+          style={styles.text}
           parse={
             [
-              {pattern: /#(\w+)/, style: styles.hashTag},
-              {pattern: /@(\w+)/, style: styles.username},
+              {pattern: /#(\w+)/, style: styles.linkColor},
+              {pattern: /@(\w+)/, style: styles.linkColor},
             ]
           }
         >
@@ -45,11 +46,22 @@ NMBioText.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  hashTag: {
-    color: '#00ACED'
+  text: {
+    color: '#5d5d5d',
+    fontSize: 15
   },
-  username: {
-    color: '#1DA1F2'
+  linkColor: {
+    color: '#00ACED',
+    fontSize: 16
+  },
+  readMore: {
+    color: '#00ACED',
+    paddingTop: 6
+  },
+  readLess: {
+    paddingTop: 10,
+    paddingBottom: 6,
+    color: '#767676'
   }
 })
 

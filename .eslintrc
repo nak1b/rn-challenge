@@ -69,10 +69,6 @@
     "mocha"   : true,
     "node"    : true
   },
-  "ecmaFeatures": {
-    "jsx"                          : true,
-    "experimentalObjectRestSpread" : true
-  },
   "plugins": [
     "react"
   ]
