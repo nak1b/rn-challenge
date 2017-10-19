@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, Dimensions } from 'react-native'
 
-import { NMBioText, NBSwiper } from '../components'
+import { NMBioText, NBSwiper, NBGrid } from '../components'
 
 const data = [
   {
@@ -49,6 +49,7 @@ class Profile extends Component {
       index: 1
     }
   }
+
   render() {
     return (
       <View style={styles.container}>
@@ -64,6 +65,7 @@ class Profile extends Component {
           </View>
         </View>
         <NBSwiper data={data} />
+        <NBGrid data={data} />
       </View>
     )
   }
