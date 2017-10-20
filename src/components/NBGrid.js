@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
   gridItem: {
     width: GRID_ITEM_DIMENSION,
     height: GRID_ITEM_DIMENSION,
-    backgroundColor: 'red',
+    backgroundColor: '#f2f2f2',
     borderWidth: 1,
-    borderColor: '#e3e3e3'
+    borderColor: '#fff'
   }
 })
 

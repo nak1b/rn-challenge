@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { bindActionCreators } from 'redux'
@@ -53,7 +53,7 @@ class Profile extends Component {
   }
 
   renderHeader() {
-    const { bio, profileThumbnail } = this.props.profileInfo
+    const { bio, profileThumbnail, name } = this.props.profileInfo
 
     return (
       <View>
@@ -62,8 +62,11 @@ class Profile extends Component {
             style={styles.avatar}
             source={{uri:profileThumbnail}}
           />
-          <View style={styles.bioContainer}>
-            {bio && <NMBioText text={bio} />}
+          <View style={{flex: 1}}>
+            <Text style={styles.username}>{name}</Text>
+            <View style={styles.bioContainer}>
+              {bio && <NMBioText text={bio} />}
+            </View>
           </View>
         </View>
         <NBSwiper data={data} />
@@ -108,6 +111,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#f2f2f2'
   },
+  username: {
+    flex: 1,
+    color: '#6d6d6d',
+    fontWeight: '500',
+    fontSize: 16,
+    paddingBottom: 4
+  },
   avatar: {
     width: 80,
     height: 80,
@@ -116,8 +126,7 @@ const styles = StyleSheet.create({
   },
   bioContainer: {
     flex: 1,
-    marginRight: 12,
-    alignSelf:'center'
+    paddingRight: 12
   }
 })
 
