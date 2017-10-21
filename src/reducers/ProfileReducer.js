@@ -1,14 +1,18 @@
 import {
   FETCHING_PROFILE_INFO,
   PROFILE_FETCH_SUCCESS,
-  PROFILE_FETCH_FAIL
+  PROFILE_FETCH_FAIL,
+  USER_FEED_FETCH_SUCCESS,
+  POPULAR_POST_FETCH_SUCCESS
 } from '../actions/ProfileActions'
 
 
 const INITIAL_STATE = {
   loading      : false,
   error        : null,
-  profileInfo  : {}
+  profileInfo  : {},
+  userFeed     : [],
+  popularPosts : []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -30,6 +34,18 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       loading: false,
       error: action.payload
+    }
+
+  case USER_FEED_FETCH_SUCCESS:
+    return {
+      ...state,
+      userFeed: action.payload.result.posts
+    }
+
+  case POPULAR_POST_FETCH_SUCCESS:
+    return {
+      ...state,
+      popularPosts: action.payload.result.posts
     }
 
   default:

@@ -49,7 +49,7 @@ class NBSwiper extends Component {
           onIndexChanged={(index) => this.setState({currentIndex: index})}>
           {this.props.data.map((item, key) => {
             return (
-              <NBSwiperItem key={item.createdAt} data={item} />
+              <NBSwiperItem key={item.objectId} data={item} />
             )
           })}
         </Swiper>

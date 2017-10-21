@@ -7,53 +7,18 @@ import { connect } from 'react-redux'
 
 import Images from '@assets/images'
 import { NMBioText, NBSwiper, NBGrid } from '../components'
-import { fetchProfileInfo } from '../actions/ProfileActions'
-
-const data = [
-  {
-    'createdAt': '2016-09-16T22:18:13.091Z',
-    'thumbnail': 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/17517155-1474064295274.jpg',
-    'className': 'Post',
-    'objectId': 17517155,
-    '__type': 'Object'
-  },
-  {
-    'createdAt': '2016-03-23T20:42:20.304Z',
-    'thumbnail': 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080756-1458765641755.jpg',
-    'className': 'Post',
-    'objectId': 16080756,
-    '__type': 'Object'
-  },
-  {
-    'createdAt': '2016-03-23T20:39:22.673Z',
-    'thumbnail': 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080726-1458765465153.jpg',
-    'className': 'Post',
-    'objectId': 16080726,
-    '__type': 'Object'
-  },
-  {
-    'createdAt': '2016-03-23T20:26:58.405Z',
-    'thumbnail': 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080559-1458764720696.jpg',
-    'className': 'Post',
-    'objectId': 16080559,
-    '__type': 'Object'
-  },
-  {
-    'createdAt': '2016-03-23T20:09:03.645Z',
-    'thumbnail': 'https://d1m37qdzmw041i.cloudfront.net/photos/posts/thumbnails/16080362-1458763645300.jpg',
-    'className': 'Post',
-    'objectId': 16080362,
-    '__type': 'Object'
-  }
-]
+import { fetchProfileInfo, fetchFeedPhotos, fetchPopularPosts } from '../actions/ProfileActions'
 
 class Profile extends Component {
   componentWillMount() {
     this.props.fetchProfileInfo()
+    this.props.fetchFeedPhotos()
+    this.props.fetchPopularPosts()
   }
 
   renderHeader() {
-    const { bio, profileThumbnail, name } = this.props.profileInfo
+    const { userFeed, profileInfo } = this.props
+    const { bio, profileThumbnail, name } = profileInfo
 
     return (
       <View>
@@ -69,19 +34,23 @@ class Profile extends Component {
             </View>
           </View>
         </View>
-        <NBSwiper data={data} />
+        {(userFeed && userFeed.length>0) &&
+          <NBSwiper data={this.props.userFeed} />
+        }
       </View>
     )
   }
 
   render() {
+    const { popularPosts } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.navBar}>
           <Image source={Images.logo} style={styles.navBarLogo} resizeMode='contain'/>
         </View>
         <NBGrid
-          data={data}
+          data={popularPosts}
           renderHeader={() => this.renderHeader()}
         />
       </View>
@@ -131,22 +100,29 @@ const styles = StyleSheet.create({
 })
 
 Profile.propTypes = {
-  profileInfo: PropTypes.object.isRequired,
-  fetchProfileInfo: PropTypes.func.isRequired
+  profileInfo       : PropTypes.object.isRequired,
+  userFeed          : PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchProfileInfo  : PropTypes.func.isRequired,
+  fetchFeedPhotos   : PropTypes.func.isRequired,
+  fetchPopularPosts : PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => {
-  const { loading, profileInfo } = state.profile
+  const { loading, profileInfo, userFeed, popularPosts } = state.profile
 
   return {
     loading,
-    profileInfo
+    profileInfo,
+    userFeed,
+    popularPosts
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchProfileInfo
+    fetchProfileInfo,
+    fetchFeedPhotos,
+    fetchPopularPosts
   }, dispatch)
 }
 

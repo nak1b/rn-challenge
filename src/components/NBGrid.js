@@ -11,7 +11,7 @@ class NBGrid extends Component {
     this.dataSource = []
   }
 
-  componentWillRecieveProp(nextProp) {
+  componentWillReceiveProps(nextProp) {
     this.createDataSource(nextProp)
   }
 
@@ -20,6 +20,7 @@ class NBGrid extends Component {
   }
 
   createDataSource({data}) {
+    console.log(data)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.dataSource = ds.cloneWithRows(data)
   }
