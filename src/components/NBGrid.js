@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, ListView, Dimensions } from 'react-native'
+import { StyleSheet, Image, ListView, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
 
 const GRID_ITEM_DIMENSION = Dimensions.get('window').width / 3
@@ -25,9 +25,12 @@ class NBGrid extends Component {
     this.dataSource = ds.cloneWithRows(data)
   }
 
-  renderGridItem(data, sectionID, rowID) {
+  renderGridItem({thumbnail}) {
     return (
-      <View style={styles.gridItem}/>
+      <Image
+        style={styles.gridItem}
+        source={{uri:thumbnail}}
+      />
     )
   }
 
