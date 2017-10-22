@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Linking, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import ParsedText from 'react-native-parsed-text'
@@ -7,6 +7,25 @@ import ViewMoreText from  '@expo/react-native-read-more-text'
 
 
 class NMBioText extends Component {
+  handleHashTagPress(hashTag) {
+    const tag = hashTag.replace('#', '')
+    const url = `https://twitter.com/hashtag/${tag}`
+    console.log(url)
+    this.openURL(url)
+  }
+
+  handleUsernamePress(username) {
+    const url = `https://twitter.com/${username}`
+    this.openURL(url)
+  }
+
+  openURL(url) {
+    Linking.openURL(url)
+      .catch(err => {
+        console.log(`Error opening url: ${err}`)
+      })
+  }
+
   _renderRevealedFooter(onPress) {
     return(
       <Text style={styles.readLess} onPress={onPress}>View Less</Text>
@@ -29,8 +48,8 @@ class NMBioText extends Component {
           style={styles.text}
           parse={
             [
-              {pattern: /#(\w+)/, style: styles.linkColor},
-              {pattern: /@(\w+)/, style: styles.linkColor},
+              {pattern: /#(\w+)/, style: styles.linkColor, onPress: (text) => this.handleHashTagPress(text)},
+              {pattern: /@(\w+)/, style: styles.linkColor, onPress: (text) => this.handleUsernamePress(text)},
             ]
           }
         >
